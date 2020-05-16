@@ -24,7 +24,7 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "homepage": "http://www.deepictorial.be/count-me-in/",
+  "homepage": "www.deepictorial.be/count-me-in/",
   "browserslist": {
     "production": [
       ">0.2%",
