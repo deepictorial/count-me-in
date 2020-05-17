@@ -1,5 +1,9 @@
 .App {
   text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
 .App-logo {
@@ -7,8 +11,13 @@
   pointer-events: none;
 }
 
+ .btn-success {
+  font-size: 16px !important;
+}
+
 .btn-primary {
-  margin: 10px;
+  font-size: 16px !important;
+  margin: 10px !important;
 }
 
 .date-picker {
@@ -40,21 +49,28 @@ textarea {
   border: none;
 }
 
+.saved-text:hover {
+  border: 1px dashed blue;
+  cursor: text;
+}
+
+#user-display {
+  width: 100px;
+  font-size: 25px;
+}
+
+.form-inline {
+  margin-left: 70%;
+}
+
+#user-name {
+  font-size: 18px !important;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-link {
