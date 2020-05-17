@@ -34,6 +34,31 @@ class Countdown extends React.Component {
     this.setState((state,props) => (
       {date: state.startDate, eventname: state.eventname}));
     document.getElementById('event-text').classList.add('saved-text');
+    this.sendEvent();
+  }
+
+  async sendEvent() {
+    //{"user":"user1","event":"its a random tuesday", "time":1590125266}
+    let username = this.props.username;
+    let eventname = this.state.eventname;
+    let eventdate = this.state.date;
+    let countdownitem = {user: username, event: eventname, time: eventdate.getTime()};
+
+    let response = await fetch('https://law20kowah.execute-api.us-west-2.amazonaws.com/prod/setnewcountdown', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    },
+      body: JSON.stringify(countdownitem)
+    }).then(function (response) {
+      if(response.status === 200) {
+        console.log("countdown date has been sent",countdownitem);
+      } else if(response.status > 399){
+        console.log("countdown date has wasnt sent, check errors");
+      }
+    }).catch(function (err) {
+  	  console.warn('Something went wrong.', err);
+    });
   }
 
   render() {
@@ -54,7 +79,8 @@ class Countdown extends React.Component {
             onChange={this.handleChange}
             showTimeSelect
             dateFormat="MMMM d, yyyy h:mm aa"/>
-          <button className="btn btn-primary">Start Countdown</button>
+          <button
+            className="btn btn-primary">Start Countdown</button>
         </div>
         </form>
         <Clock date={this.state.date}/>
