@@ -3,7 +3,6 @@
   background-color: #282c34;
   min-height: 100vh;
   font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-logo {
@@ -65,6 +64,10 @@ textarea {
 
 #user-name {
   font-size: 18px !important;
+}
+
+.countdown-text {
+  color: white;
 }
 
 @media (prefers-reduced-motion: no-preference) {

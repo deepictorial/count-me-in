@@ -80,7 +80,7 @@ class Clock extends React.Component {
 
     return (
       <div>
-        <h3>{ days } days, { hours } hrs, { min } min, { sec } s remaining</h3>
+        <h3 className="countdown-text">{ days } days, { hours } hrs, { min } min, { sec } s remaining</h3>
       </div>
     );
   }
