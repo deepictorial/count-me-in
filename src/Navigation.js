@@ -14,8 +14,9 @@ class Navigation extends React.Component {
   }
 
   handleClick(event) {
-    document.getElementById('user-display').innerHTML = "Welcome " + this.state.username + "!";
+    document.getElementById('user-display').innerHTML = "Welcome " + this.state.username;
     document.getElementById('user-name').value = '';
+    this.props.passUserName(this.state.username);
   }
 
   handleTextChange(event) {
