@@ -4,6 +4,9 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Clock from './Clock.js';
+import Accordion from 'react-bootstrap/accordion';
+import Button from 'react-bootstrap/button';
+import Card from 'react-bootstrap/card';
 
 class Countdown extends React.Component {
   constructor(props) {
@@ -24,9 +27,6 @@ class Countdown extends React.Component {
     this.setState({
       eventname: event.target.value
     })
-  }
-
-  componentDidMount() {
   }
 
   onFormSubmit(e) {
@@ -63,28 +63,39 @@ class Countdown extends React.Component {
 
   render() {
     return (
-      <div className="countdown-new">
-        <form onSubmit={ this.onFormSubmit }>
-        <div className="form-group">
-          <div className="event-group">
-            <textarea
-              id="event-text"
-              placeholder="Your event name.."
-              onChange={this.handleTextChange}>
-            </textarea>
-          </div>
-          <DatePicker
-            className="date-picker"
-            selected={this.state.startDate}
-            onChange={this.handleChange}
-            showTimeSelect
-            dateFormat="MMMM d, yyyy h:mm aa"/>
-          <button
-            className="btn btn-primary">Start Countdown</button>
-        </div>
-        </form>
-        <Clock date={this.state.date}/>
-      </div>
+      <Accordion>
+        <Card>
+          <Card.Header>
+            <Accordion.Toggle as={Card.Header} eventKey="0">
+              Add new countdown
+            </Accordion.Toggle>
+          </Card.Header>
+          <Accordion.Collapse eventKey="0">
+            <div className="countdown-new">
+              <form onSubmit={ this.onFormSubmit }>
+              <div className="form-group">
+                <div className="event-group">
+                  <textarea
+                    id="event-text"
+                    placeholder="Your event name.."
+                    onChange={this.handleTextChange}>
+                  </textarea>
+                </div>
+                <DatePicker
+                  className="date-picker"
+                  selected={this.state.startDate}
+                  onChange={this.handleChange}
+                  showTimeSelect
+                  dateFormat="MMMM d, yyyy h:mm aa"/>
+                <button
+                  className="btn btn-primary">Start Countdown</button>
+              </div>
+              </form>
+              <Clock date={this.state.date}/>
+            </div>
+          </Accordion.Collapse>
+        </Card>
+      </Accordion>
     );
   }
 }
