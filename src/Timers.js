@@ -1,10 +1,15 @@
 import React from 'react';
 import './App.css';
 import Card from 'react-bootstrap/card';
+import Clock from './Clock.js';
 
 class Timers extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  dateObj(itemdate) {
+    return new Date(itemdate);
   }
 
   render() {
@@ -20,20 +25,28 @@ class Timers extends React.Component {
       )
     }
 
+    let timermap = [];
+    for ( var i = 0; i < timers.countdowns.length; i++) {
+      let date = new Date(timers.countdowns[i].time);
+      let dateString = date.toString();
+      let dateEvent = timers.countdowns[i].event;
+      timermap.push({date, dateString, dateEvent});
+    }
+
     return (
-      timers.countdowns.map((item, key) => (
+      timermap.map(item => (
         <>
          <Card
            className='timer-card'
            bg='light'
            text='dark'
            style={{ width: '83rem' }}>
-           <Card.Header>{item.event}</Card.Header>
+           <Card.Header>{item.dateEvent}</Card.Header>
            <Card.Body>
-             <Card.Title>{}</Card.Title>
              <Card.Text>
-               {item.time}
+               {item.dateString}
              </Card.Text>
+             <Clock date={item.date}/>
            </Card.Body>
          </Card>
          <br />
