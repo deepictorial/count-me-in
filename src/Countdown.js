@@ -5,13 +5,12 @@ import 'react-datepicker/dist/react-datepicker.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Clock from './Clock.js';
 import Accordion from 'react-bootstrap/accordion';
-import Button from 'react-bootstrap/button';
 import Card from 'react-bootstrap/card';
 
 class Countdown extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {date: new Date(), eventname: 'Enter event name'};
+    this.state = {date: new Date(), eventname: 'Enter event name', selectedDate: new Date()};
     this.handleChange = this.handleChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.handleTextChange = this.handleTextChange.bind(this);
@@ -63,7 +62,7 @@ class Countdown extends React.Component {
 
   render() {
     return (
-      <Accordion>
+      <Accordion className="accordion-countdown">
         <Card>
           <Card.Header>
             <Accordion.Toggle as={Card.Header} eventKey="0">
@@ -86,9 +85,11 @@ class Countdown extends React.Component {
                   selected={this.state.startDate}
                   onChange={this.handleChange}
                   showTimeSelect
-                  dateFormat="MMMM d, yyyy h:mm aa"/>
+                  dateFormat="MMMM d, yyyy h:mm aa"
+                  withPortal/>
                 <button
-                  className="btn btn-primary">Start Countdown</button>
+                  className="btn btn-primary">Start Countdown
+                </button>
               </div>
               </form>
               <Clock date={this.state.date}/>

@@ -14,7 +14,7 @@ class App extends React.Component {
   getUsername = (navUsername) => {
     this.setState({ username: navUsername })
   }
-
+  
   componentDidUpdate() {
     if (this.state.username !== null) {
       let promiseresult = new Promise(resolve => {
