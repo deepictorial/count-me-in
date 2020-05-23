@@ -20,6 +20,10 @@ class Clock extends React.Component {
     }, 1000);
   }
 
+  componentDidUnmount() {
+    this.stop();
+  }
+
   componentDidUpdate(prevProps) {
     if (this.props.date !== prevProps.date) {
       this.setState((state,props) => ({date: props.date}));

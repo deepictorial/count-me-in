@@ -10,15 +10,15 @@ import Card from 'react-bootstrap/card';
 class Countdown extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {date: new Date(), eventname: 'Enter event name', selectedDate: new Date()};
+    this.state = {date: null, eventname: 'Enter event name'};
     this.handleChange = this.handleChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.handleTextChange = this.handleTextChange.bind(this);
   }
 
-  handleChange(date) {
+  handleChange(newdate) {
     this.setState({
-      startDate: date
+      startDate: newdate
     })
   }
 
@@ -40,7 +40,7 @@ class Countdown extends React.Component {
     //{"user":"user1","event":"its a random tuesday", "time":1590125266}
     let username = this.props.username;
     let eventname = this.state.eventname;
-    let eventdate = this.state.date;
+    let eventdate = this.state.startDate;
     let countdownitem = {user: username, event: eventname, time: eventdate.getTime()};
 
     let response = await fetch('https://law20kowah.execute-api.us-west-2.amazonaws.com/prod/setnewcountdown', {
@@ -92,7 +92,6 @@ class Countdown extends React.Component {
                 </button>
               </div>
               </form>
-              <Clock date={this.state.date}/>
             </div>
           </Accordion.Collapse>
         </Card>
