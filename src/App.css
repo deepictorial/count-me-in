@@ -3,11 +3,31 @@
   background-color: #282c34;
   min-height: 100vh;
   font-size: calc(10px + 2vmin);
+  overflow: hidden;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.ui.icon.header:first-child {
+  margin-top: 50px;
+  color: white;
+}
+
+h2.ui.header .sub.header {
+  margin: 20px;
+  color: white;
+}
+
+.ui.icon.header .icon {
+  margin: 20px;
+}
+
+.ui.header>.image:not(.icon), .ui.header>img {
+  height: max-content;
+  width: auto;
 }
 
 .btn-success {
@@ -85,7 +105,7 @@ textarea {
 .card-columns {
   display: inline-table;
   float: right;
-  margin: 100px;
+  margin: 70px;
 }
 
 @media (prefers-reduced-motion: no-preference) {

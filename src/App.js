@@ -4,15 +4,17 @@ import Mainpage from './Mainpage.js';
 import Login from './Login.js';
 import Signup from './Signup.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Header, Icon } from 'semantic-ui-react';
+import { Header, Icon, Image, Divider } from 'semantic-ui-react';
+import logo from './images/icon.png';
 
 const HeaderIcon = () => (
-  <Header as='h2' icon>
+  <Header as='h2' icon>Count Me In!
     <Icon name='clock' />
-    Account Settings
+    <Divider hidden />
     <Header.Subheader>
       Personalize your countdown timers
     </Header.Subheader>
+    <Image src={logo} fluid />
   </Header>
 )
 
