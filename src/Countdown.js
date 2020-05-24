@@ -3,7 +3,6 @@ import './App.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Clock from './Clock.js';
 import Accordion from 'react-bootstrap/accordion';
 import Card from 'react-bootstrap/card';
 
