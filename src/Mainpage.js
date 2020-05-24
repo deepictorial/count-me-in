@@ -3,27 +3,34 @@ import './App.css';
 import Countdown from './Countdown.js';
 import Navigation from './Navigation.js';
 import Timers from './Timers.js';
+import Jumbotron from 'react-bootstrap/jumbotron';
 
 class Mainpage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { username: null, timerData: {} };
-  }
-
-  getUsername = (navUsername) => {
-    this.setState({ username: navUsername })
+    this.state = { username: null, timerData: {}, refresh: null };
   }
 
   componentDidMount() {
-    if (this.state.username !== null) {
-      this.getUserEvents();
+    if (this.props.username !== null) {
+      this.getUserEvents(this.props.username);
     }
   }
 
-  getUserEvents() {
-    if (this.state.username !== null) {
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.refresh !== this.state.refresh) {
+      console.log("prevState", prevState);
+      console.log("prevProps", prevProps);
+
+      console.log("does it come here - main update inside if loop ");
+      this.getUserEvents(this.props.username);
+    }
+  }
+
+  getUserEvents(username) {
+    if (username !== null) {
       let promiseresult = new Promise(resolve => {
-        fetch('https://law20kowah.execute-api.us-west-2.amazonaws.com/prod/getuser?id='+this.state.username).then(function (response) {
+        fetch('https://law20kowah.execute-api.us-west-2.amazonaws.com/prod/getuser?id='+username).then(function (response) {
       	    resolve(response.json());
           });
         }).catch(function (err) {
@@ -38,12 +45,24 @@ class Mainpage extends React.Component {
     }
   }
 
+  getRefresh = (value) => {
+    this.setState({ refresh: value })
+  }
+
   render() {
     return (
       <div className="Mainpage">
-        <Navigation passUserName={this.getUsername}/>
-        <Countdown username={this.state.username}/>
-        <Timers timerData={this.state.timerData} username={this.state.username}/>
+        <Jumbotron>
+          <h1>Hello, {this.props.username}!</h1>
+          <p>
+            You can add a new Event name with a countdown timer by clicking
+            Add below.
+          </p>
+          <p>
+          </p>
+        </Jumbotron>
+        <Countdown username={this.props.username} passRefresh={this.getRefresh}/>
+        <Timers timerData={this.state.timerData} username={this.props.username}/>
       </div>
     );
   }
