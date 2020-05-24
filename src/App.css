@@ -3,6 +3,7 @@
   background-color: #282c34;
   min-height: 100vh;
   font-size: calc(10px + 2vmin);
+  overflow: hidden;
 }
 
 .App-logo {
@@ -10,7 +11,27 @@
   pointer-events: none;
 }
 
- .btn-success {
+.ui.icon.header:first-child {
+  margin-top: 50px;
+  color: white;
+}
+
+h1.ui.header .sub.header {
+  margin: 20px;
+  color: white;
+}
+
+.ui.icon.header .icon {
+  float: left;
+  margin: 20px;
+}
+
+.ui.header>.image:not(.icon), .ui.header>img {
+  height: max-content;
+  width: auto;
+}
+
+.btn-success {
   font-size: 16px !important;
 }
 
@@ -80,6 +101,12 @@ textarea {
 
 #event-text {
   margin: 10px;
+}
+
+.card-columns {
+  display: inline-table;
+  float: right;
+  margin: 70px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
