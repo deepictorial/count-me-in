@@ -4,7 +4,7 @@ import Mainpage from './Mainpage.js';
 import Login from './Login.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Header, Icon, Image, Divider } from 'semantic-ui-react';
-import logo from './images/icon.png';
+import logo from './images/countmein.gif';
 
 const HeaderIcon = () => (
   <Header as='h1' icon>Count Me In!
@@ -22,7 +22,7 @@ class App extends React.Component {
     super(props);
     this.state = { username: null, redirect: false };
   }
-  
+
   getUsername = (navUsername) => {
     this.setState({ username: navUsername })
   }
