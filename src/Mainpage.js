@@ -24,6 +24,7 @@ class Mainpage extends React.Component {
 
       console.log("does it come here - main update inside if loop ");
       this.getUserEvents(this.props.username);
+      this.setState({refresh: null});
     }
   }
 
