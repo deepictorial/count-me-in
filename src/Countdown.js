@@ -5,11 +5,13 @@ import 'react-datepicker/dist/react-datepicker.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Accordion from 'react-bootstrap/accordion';
 import Card from 'react-bootstrap/card';
+import Button from 'react-bootstrap/button';
+import Timers from './Timers.js';
 
 class Countdown extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {date: null, eventname: 'Enter event name'};
+    this.state = {date: null, eventname: 'Enter event name', refresh: null};
     this.handleChange = this.handleChange.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.handleTextChange = this.handleTextChange.bind(this);
@@ -31,7 +33,6 @@ class Countdown extends React.Component {
     e.preventDefault();
     this.setState((state,props) => (
       {date: state.startDate, eventname: state.eventname}));
-    document.getElementById('event-text').classList.add('saved-text');
     this.sendEvent();
   }
 
@@ -48,9 +49,10 @@ class Countdown extends React.Component {
       'Content-Type': 'application/json;charset=utf-8'
     },
       body: JSON.stringify(countdownitem)
-    }).then(function (response) {
+    }).then((response) => {
       if(response.status === 200) {
-        console.log("countdown date has been sent",countdownitem);
+        this.setState({refresh: true});
+        this.props.passRefresh(this.state.refresh);
       } else if(response.status > 399){
         console.log("countdown date has wasnt sent, check errors");
       }
@@ -64,32 +66,33 @@ class Countdown extends React.Component {
       <Accordion className="accordion-countdown">
         <Card>
           <Card.Header>
-            <Accordion.Toggle as={Card.Header} eventKey="0">
+            <Accordion.Toggle id="toggler" as={Card.Header} eventKey="0">
               Add new countdown
             </Accordion.Toggle>
           </Card.Header>
           <Accordion.Collapse eventKey="0">
             <div className="countdown-new">
-              <form onSubmit={ this.onFormSubmit }>
-              <div className="form-group">
-                <div className="event-group">
-                  <textarea
-                    id="event-text"
-                    placeholder="Your event name.."
-                    onChange={this.handleTextChange}>
-                  </textarea>
+              <form id="date-form" onSubmit={ this.onFormSubmit }>
+                <div className="form-group">
+                  <div className="event-group">
+                    <textarea
+                      id="event-text"
+                      placeholder="Your event name"
+                      onChange={this.handleTextChange}>
+                    </textarea>
+                  </div>
+                  <DatePicker
+                    id="date-picker"
+                    selected={this.state.startDate}
+                    onChange={this.handleChange}
+                    showTimeSelect
+                    dateFormat="MMMM d, yyyy h:mm aa"
+                    withPortal
+                    placeholderText="Choose event date"/>
+                  <button
+                    className="btn btn-primary">Start Countdown
+                  </button>
                 </div>
-                <DatePicker
-                  className="date-picker"
-                  selected={this.state.startDate}
-                  onChange={this.handleChange}
-                  showTimeSelect
-                  dateFormat="MMMM d, yyyy h:mm aa"
-                  withPortal/>
-                <button
-                  className="btn btn-primary">Start Countdown
-                </button>
-              </div>
               </form>
             </div>
           </Accordion.Collapse>

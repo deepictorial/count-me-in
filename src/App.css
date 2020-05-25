@@ -31,6 +31,10 @@ h1.ui.header .sub.header {
   width: auto;
 }
 
+.text-muted.form-text {
+  color: #ed143db0 !important;
+}
+
 .btn-success {
   font-size: 16px !important;
 }
@@ -40,7 +44,7 @@ h1.ui.header .sub.header {
   margin: 10px !important;
 }
 
-.date-picker {
+#date-picker {
   width: 350px;
 }
 
@@ -51,6 +55,10 @@ h1.ui.header .sub.header {
   height: 50px;
   width: 330px;
   resize: none;
+  text-align: center;
+}
+
+#date-picker {
   text-align: center;
 }
 
@@ -125,5 +133,19 @@ textarea {
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .timer-card {
+    width: auto !important;
+    margin-left: 0 !important;
+  }
+}
+
+@media (min-width: 576px) {
+  .timer-card {
+    width: auto !important;
+    margin-left: 0 !important;
   }
 }

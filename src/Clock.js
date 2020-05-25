@@ -20,7 +20,7 @@ class Clock extends React.Component {
     }, 1000);
   }
 
-  componentDidUnmount() {
+  componentWillUnmount() {
     this.stop();
   }
 

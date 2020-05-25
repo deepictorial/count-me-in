@@ -8,7 +8,13 @@ import './App.css';
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {user: "user", email: "email"};
+    this.state = {
+      user: "",
+      email: "",
+      loginerror: "",
+      signuperror: "",
+      redirect: false
+    };
     this.handleUserChange = this.handleUserChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
     this.login = this.login.bind(this);
@@ -19,7 +25,6 @@ class Login extends React.Component {
     e.preventDefault();
     let user = this.state.user;
     let loginData = {user: user};
-    console.log("loginData", loginData);
 
     fetch('https://law20kowah.execute-api.us-west-2.amazonaws.com/prod/login', {
     method: 'POST',
@@ -27,13 +32,15 @@ class Login extends React.Component {
       'Content-Type': 'application/json;charset=utf-8'
     },
       body: JSON.stringify(loginData)
-    }).then(function (response) {
+    }).then((response) => {
       if(response.status === 200) {
-        console.log("login was a success",response);
+        this.setState({loginerror: "", redirect: true});
+        this.props.passUserName(this.state.user);
+        this.props.passRedirect(this.state.redirect);
       } else if(response.status > 399){
-        console.log("user name doesn't exist");
+        this.setState({loginerror: "Username doesn't exist"});
       }
-    }).catch(function (err) {
+    }).catch((err) => {
   	  console.warn('Something went wrong.', err);
     });
   }
@@ -43,7 +50,6 @@ class Login extends React.Component {
     let user = this.state.user;
     let email = this.state.email;
     let signupData = {user: user, email: email};
-    console.log("signupData", signupData);
 
     fetch('https://law20kowah.execute-api.us-west-2.amazonaws.com/prod/signup', {
     method: 'POST',
@@ -51,12 +57,14 @@ class Login extends React.Component {
       'Content-Type': 'application/json;charset=utf-8'
     },
       body: JSON.stringify(signupData)
-    }).then(function (response) {
-      if(response.status === 200) {
-        console.log("signup is a success",response);
-      } else if(response.status > 399){
-        console.log("user name is not available, choose another");
-      }
+    }).then((response) => {
+        if(response.status === 200) {
+          this.setState({signuperror: "", redirect: true});
+          this.props.passUserName(this.state.user);
+          this.props.passRedirect(this.state.redirect);
+        } else if(response.status > 399){
+          this.setState({signuperror: "Username is taken, choose another one."});
+        }
     }).catch(function (err) {
   	  console.warn('Something went wrong.', err);
     });
@@ -75,6 +83,8 @@ class Login extends React.Component {
   }
 
   render() {
+    const { loginerror, signuperror } = this.state;
+
     return (
       <CardColumns>
         <Card className="p-3">
@@ -88,6 +98,9 @@ class Login extends React.Component {
                type="text"
                placeholder="Username"
                onChange={this.handleUserChange} />
+               <Form.Text className="text-muted">
+                  {loginerror}
+              </Form.Text>
             </Form.Group>
             <Button variant="primary" type="submit" onClick={this.login}>
               Login
@@ -105,6 +118,9 @@ class Login extends React.Component {
                 type="text"
                 placeholder="Username"
                 onChange={this.handleUserChange} />
+                <Form.Text className="text-muted">
+                   {signuperror}
+               </Form.Text>
             </Form.Group>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>

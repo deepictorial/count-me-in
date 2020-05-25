@@ -20,20 +20,32 @@ const HeaderIcon = () => (
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { username: null, timerData: {} };
+    this.state = { username: null, redirect: false };
   }
-
+  
   getUsername = (navUsername) => {
     this.setState({ username: navUsername })
   }
 
+  getRedirect = (value) => {
+    this.setState({ redirect: value })
+  }
+
   render() {
-    return (
-      <div className="App">
-        <HeaderIcon />
-        <Login />
-      </div>
-    );
+    if(this.state.redirect === false) {
+      return (
+          <div className="App">
+            <HeaderIcon />
+            <Login passUserName={this.getUsername} passRedirect={this.getRedirect}/>
+          </div>
+        );
+      } else {
+          return (
+            <div className="App">
+              <Mainpage username={this.state.username}/>
+            </div>
+          );
+      }
   }
 }
 
